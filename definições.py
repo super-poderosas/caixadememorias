@@ -56,7 +56,8 @@ estados = {
         }
     },
     9: {
-        'frases': ['Curiosidade historica: A Neue Synagoge ou Nova Sinagoga, localizada na Oranienburger Strasse, tem um grande significado e importância na história dos judeus em Berlim e, juntamente com o Museu Judaico e o Memorial do Holocausto, é também um dos principais marcos judaicos na cidade.\n\n\nO caça-palavras revela o nome da sinagoga e isso permite que Clarice possa ir ao evento com esperança de encontrar sua mãe, que até esse momento ela acreditava não ter sobrevivido ao holocausto. No dia seguinte ao chegar na sinagoga ela aproveita a comemoração e logo antes de desistir e ir embora é apresentada para a organizadora do evento Poliana Becker, sua mãe. Sua mãe não reconhece ela de primeira, mas ao ouvir a história abraça a filha emocionada e conta que apenas não procurou Clarice depois da guerra, pois acreditava que ela não estava viva. ': {
+        'frases': ['Curiosidade historica: A Neue Synagoge ou Nova Sinagoga, localizada na Oranienburger Strasse, tem um grande significado e importância na história dos judeus em Berlim e, juntamente com o Museu Judaico e o Memorial do Holocausto, é também um dos principais marcos judaicos na cidade.\nO caça-palavras revela o nome da sinagoga e isso permite que Clarice possa ir ao evento com esperança de encontrar sua mãe, que até esse momento ela acreditava não ter sobrevivido ao holocausto. No dia seguinte ao chegar na sinagoga ela aproveita a comemoração e logo antes de desistir e ir embora é apresentada para a organizadora do evento Poliana Becker, sua mãe. Sua mãe não reconhece ela de primeira, mas ao ouvir a história abraça a filha emocionada e conta que apenas não procurou Clarice depois da guerra, pois acreditava que ela não estava viva.'],
+        'proximos_estados': {
             '.+': 0
         }
     },
