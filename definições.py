@@ -38,7 +38,7 @@ estados = {
         'frases': ['Que pena! Você errou, tente novamente!'],
         'proximos_estados': {
             '.+': 5
-            '3 1 2 4': 4
+            '3[ ,]*1[ ,]*2[ ,]*4': 4
         }
     },
     6: {
