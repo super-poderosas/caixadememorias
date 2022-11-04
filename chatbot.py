@@ -10,7 +10,8 @@ load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(intents=intents, command_prefix='')
+prefix = '-'
+bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
 @bot.event
@@ -27,23 +28,17 @@ async def on_message(msg):
         return
     autor = msg.author.id
     #
+    # Filtrar comando por prefixo
+    if msg.content.strip()[0] == prefix:
+        mensagem = msg.content.strip()[1:]
+    else:
+        return
+    #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador
     if msg.channel.type.name == 'private':
         await msg.channel.send(frases['canal_privado'])
         return
-    #
-    # Testar se o jogador está em canal de voz,
-    # caso contrário convidá-lo a entrar em um
-    if not msg.author.voice:
-        await msg.channel.send(frases['sem_canal_de_voz'])
-        return
-    #
-    # Testar se o bot (msg.guild.me)
-    # já está conectado no canal de voz do jogador (in msg.author.voice.channel.members),
-    # caso contrário conectá-lo
-    if msg.guild.me not in msg.author.voice.channel.members:
-        canal_de_voz = await msg.author.voice.channel.connect()
     #
     # Garantir que o autor tem dados de partida
     if autor not in partidas:
@@ -51,11 +46,18 @@ async def on_message(msg):
         # Jogador começa no estado 0 com duas chaves
         partidas[autor] = {
             'estado': 0,
-            'inventario': {
-                'chave_prateada',
-                'chave_dourada'
-            }
+            'inventario': set()
         }
+    #
+    # Testar se o jogador está em canal de voz,
+    # caso contrário convidá-lo a entrar em um
+    if msg.author.voice:
+        if msg.guild.me not in msg.author.voice.channel.members:
+            partidas[autor]['canal_de_voz'] = await msg.author.voice.channel.connect()
+        canal_de_voz = partidas[autor]['canal_de_voz']
+    else:
+        await msg.channel.send(frases['sem_canal_de_voz'])
+        return
     #
     # Criar variáveis locais para melhorar legibilidade do código
     estado_do_jogador = estados[partidas[autor]['estado']]
@@ -63,7 +65,7 @@ async def on_message(msg):
     #
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estado_do_jogador['proximos_estados'].items():
-        if fullmatch(key, msg.content):
+        if fullmatch(key, mensagem):
             #
             # Verificar se o jogador possui inventário mínimo para avançar
             if inventario_do_jogador.issuperset(estados[value]['inventario']):
@@ -75,20 +77,21 @@ async def on_message(msg):
                 partidas[autor]['inventario'] = inventario_do_jogador.difference(
                     estados[value]['inventario'])
                 #
-                # Se houver uma imagem referente ao estado,
-                # envia essa primeiro
-                imagem = str(value) + '.png'
-                if exists(imagem):
-                    await msg.channel.send(file=discord.File(imagem))
-                #
                 # Se houver um som referente ao estado,
                 # toca no canal de voz do jogador
-                som = str(value) + '.opus'
-                if exists(som):
-                    # canal_de_voz.play(AudioSource)
-                    pass
+                arquivo_de_som = str(value) + '.mp3'
+                if exists(arquivo_de_som):
+                    #
+                    # Conectar no canal de áudio e emitir o som
+                    som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
+                    canal_de_voz.play(som_opus)
                 #
-                # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
+                # Se houver uma imagem referente ao estado, enviar
+                arquivo_de_imagem = str(value) + '.png'
+                if exists(arquivo_de_imagem):
+                    await msg.channel.send(file=discord.File(arquivo_de_imagem))
+                #
+                # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
                 [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
             else:
                 #
@@ -101,6 +104,5 @@ async def on_message(msg):
         await msg.channel.send(choice(estado_do_jogador['frases']))
     else:
         await msg.channel.send(frases['erro'])
-
 
 bot.run(getenv('DISCORD_TOKEN'))
