@@ -60,7 +60,7 @@ estados = {
         'frases': ['Você errou, tente novamente!'],
         'proximos_estados': {
             '.+': 7,
-            '[Cc]oncentra[cç][aã]o': 6
+            '[Hh]olocausto': 6
         }
     },
     9: {
