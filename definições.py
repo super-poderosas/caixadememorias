@@ -25,7 +25,7 @@ estados = {
     2: {
         'frases': ['Olá, que bom que você aceitou continuar, relembrando: temos uma caixa em mãos, e precisamos descobrir o que há dentro dela.\n Então, ao abri-la, você se depara com alguns objetos enigmáticos, o que mais te chama a atenção é uma carta, que contém uma assinatura, porém, a carta se encontra em um estado deteriorado em decorrência do tempo, então, ela está repartida em 4 pedaços. Para descobrir o conteúdo da assinatura, é necessário juntar esses pedaços de forma correta. Envie a sequência correspondente à ordem correta das partes.'],
         'proximos_estados': {
-            '3[ ,]*1[ ,]*2[ ,]*4': 4,
+            '4[ ,]*3[ ,]*2[ ,]*1': 4,
             '.+': 5
         }
     },
