@@ -73,7 +73,7 @@ estados = {
         'frases': ['Você errou, tente novamente!'],
         'proximos_estados': {
             '.+': 10,
-            'nova sinagoga': 9
+            '[Nn]ova [Ss]inagoga': 9
         }
     },
 }
