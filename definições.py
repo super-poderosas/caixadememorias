@@ -36,7 +36,7 @@ estados = {
         }
     },
     4: {
-        'frases': ['Com a carta completa conseguimos descobrir o nome da mãe de Clarice, que escreve a carta contando sobre sua situação antes de ser capturada e assina como: Poliana Becker.\n Além disso, na caixa encontramos uma cruzadinha quase toda respondida que vamos tentar resolver.'],
+        'frases': ['Com a carta completa conseguimos descobrir o nome da mãe de Clarice, que escreve a carta contando sobre sua situação antes de ser capturada e assina como: Poliana Becker.\n Além disso, na caixa encontramos uma cruzadinha quase toda respondida que vamos tentar resolver. Tente completar a cruzadinha acima.'],
         'proximos_estados': {
             '[Cc]oncentra[cç][aã]o': 6,
             '.+': 7
@@ -73,7 +73,7 @@ estados = {
         'frases': ['Você errou, tente novamente!'],
         'proximos_estados': {
             '.+': 10,
-            '[Nn]ova [Ss]inagoga': 9
+            'nova sinagoga': 9
         }
     },
 }
